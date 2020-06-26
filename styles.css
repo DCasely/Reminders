@@ -1,0 +1,62 @@
+body {
+  background: url(./low-angle-glass-high-rise-building-187913.jpg) no-repeat
+    center center fixed;
+  color: white;
+}
+
+.container {
+  margin-top: 5rem;
+  max-width: 700px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.card {
+  background-color: transparent;
+}
+
+.card-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+input,
+input:active {
+  color: white;
+}
+
+#task {
+  border-bottom: 1px solid white;
+  box-shadow: 0 1px 0 0 white;
+}
+
+#filter {
+  border-bottom: 1px solid white;
+  box-shadow: 0 1px 0 0 white;
+}
+
+.add-task {
+  display: block;
+  margin: auto;
+  width: 100%;
+}
+
+#task-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.add-task:hover {
+  background-color: gray;
+}
+
+.collection {
+  color: black;
+}
+
+.bottom-buttons {
+  display: flex;
+  justify-content: space-evenly;
+}

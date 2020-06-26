@@ -1,6 +1,7 @@
 // Define UI Vars
 const form = document.querySelector('#task-form');
 const taskList = document.querySelector('.collection');
+const loadTasks = document.querySelector('.load-tasks');
 const clearBtn = document.querySelector('.clear-tasks');
 const filter = document.querySelector('#filter');
 const taskInput = document.querySelector('#task');
@@ -12,6 +13,8 @@ loadEventListeners();
 function loadEventListeners() {
   // DOM Load event
   document.addEventListener('DOMContentLoaded', getTasks);
+  // Load Software Engineering Tasks
+  loadTasks.addEventListener('click', loadSoftwareTasks);
   // Add task event
   form.addEventListener('submit', addTask);
   //   Remove task event
@@ -31,7 +34,7 @@ function getTasks() {
     tasks = JSON.parse(localStorage.getItem('tasks'));
   }
 
-  tasks.forEach(function(task) {
+  tasks.forEach(function (task) {
     //   Create li element
     const li = document.createElement('li');
     //   Add  class
@@ -52,39 +55,72 @@ function getTasks() {
   });
 }
 
+// Load Software Engineering Tasks
+function loadSoftwareTasks() {
+  const softwareTasks = [
+    'Get "Full-Stack Developer Certification" freeCodeCamp',
+    'Get HackerRank Certification & Verifications',
+    'Achieve Top 500 Leaderboard (Top 1%) on CodeWars',
+  ];
+
+  // Add Software Tasks to UI
+  softwareTasks.map((task) => {
+    //   Create li element
+    const li = document.createElement('li');
+    //   Add  class
+    li.className = 'collection-item';
+    //   Create text node and append to the li
+    li.appendChild(document.createTextNode(task));
+    //   Create new link element
+    const link = document.createElement('a');
+    //   Add class
+    link.className = 'delete-item secondary-content';
+    //   Add icon html
+    link.innerHTML = '<i class="fa fa-remove"></i>';
+    //   Append the link to li
+    li.appendChild(link);
+
+    //   Append li to ul
+    taskList.appendChild(li);
+
+    //   Store in LS
+    storeTaskInLocalStorage(task);
+  });
+}
+
 // Add Task
 function addTask(e) {
   if (taskInput.value === '') {
     alert('Add a task');
+  } else {
+    //   Create li element
+    const li = document.createElement('li');
+    //   Add  class
+    li.className = 'collection-item';
+    //   Create text node and append to the li
+    li.appendChild(document.createTextNode(taskInput.value));
+    //   Create new link element
+    const link = document.createElement('a');
+    //   Add class
+    link.className = 'delete-item secondary-content';
+    //   Add icon html
+    link.innerHTML = '<i class="fa fa-remove"></i>';
+    //   Append the link to li
+    li.appendChild(link);
+
+    //   Append li to ul
+    taskList.appendChild(li);
+
+    //   Store in LS
+    storeTaskInLocalStorage(taskInput.value);
+
+    //   Clear input
+    taskInput.value = '';
+
+    console.log(li);
+
+    e.preventDefault();
   }
-
-  //   Create li element
-  const li = document.createElement('li');
-  //   Add  class
-  li.className = 'collection-item';
-  //   Create text node and append to the li
-  li.appendChild(document.createTextNode(taskInput.value));
-  //   Create new link element
-  const link = document.createElement('a');
-  //   Add class
-  link.className = 'delete-item secondary-content';
-  //   Add icon html
-  link.innerHTML = '<i class="fa fa-remove"></i>';
-  //   Append the link to li
-  li.appendChild(link);
-
-  //   Append li to ul
-  taskList.appendChild(li);
-
-  //   Store in LS
-  storeTaskInLocalStorage(taskInput.value);
-
-  //   Clear input
-  taskInput.value = '';
-
-  console.log(li);
-
-  e.preventDefault();
 }
 
 // Store Task
@@ -122,7 +158,7 @@ function removeTaskFromLocalStorage(taskItem) {
     tasks = JSON.parse(localStorage.getItem('tasks'));
   }
 
-  tasks.forEach(function(task, index) {
+  tasks.forEach(function (task, index) {
     if (taskItem.textContent === task) {
       tasks.splice(index, 1);
     }
@@ -156,7 +192,7 @@ function clearTasksFromLocalStorage() {
 function filterTasks(e) {
   const text = e.target.value.toLowerCase();
 
-  document.querySelectorAll('.collection-item').forEach(function(task) {
+  document.querySelectorAll('.collection-item').forEach(function (task) {
     const item = task.firstChild.textContent;
     if (item.toLowerCase().indexOf(text) != -1) {
       task.style.display = 'block';
